@@ -38,7 +38,6 @@ As the global population is projected to reach 9.7 billion by 2050, the scarcity
 ## Contributing
 Contributions to VPlant are welcome. Please refer to contributing guidelines before making pull requests.
 
-## License
-VPlant is released under MIT License.
+
 
 
