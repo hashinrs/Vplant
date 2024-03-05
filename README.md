@@ -19,21 +19,21 @@ As the global population is projected to reach 9.7 billion by 2050, the scarcity
   ```bash
   pip install Pillow
 
-##Setup and Running
+## Setup and Running
 1. Ensure Python and pip are installed on your system.
 2. Install Pillow if it's not already installed
 
 
-##How to Use
+## How to Use
 1. Load BPMN File: Click on the "Load BPMN File" button to select a BPMN file containing the vertical farming process.
 2. Navigate Through Steps: Use the "Next Step" button to proceed through each step of the farming process. Follow the recommendations provided for each step.
 3. View Images and Alerts: When applicable, view images and alerts for specific steps to better understand the task at hand.
 4. Closing: Use the "Close VPlant" button to exit the application.
 
-##Contributing
+## Contributing
 Contributions to VPlant are welcome. Please refer to contributing guidelines before making pull requests.
 
-##License
+## License
 VPlant is released under MIT License.
 
 
