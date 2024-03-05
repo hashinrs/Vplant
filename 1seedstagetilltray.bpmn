@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0av9zcw" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.19.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.3.0">
+  <bpmn:process id="processcorrectph" name="ph correction" isExecutable="true">
+    <bpmn:startEvent id="recommendation" name="VPlant&#10;seed stage Recomenndations for planting seeds in rockwool in the seedtray  path=&#34;images\start.jpg&#34;">
+      <bpmn:outgoing>Flow_1vboxfx</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="seedtrayprep" name="Prepare the Seed Tray:&#10;&#10;1. Choose a seed tray that matches the capacity of your vertical tower. This ensures that the number of seedlings prepared will fit perfectly into your hydroponics system.&#10;2. Ensure the tray is clean to prevent any disease from affecting the seeds. path=&#34;images\growtray.jpg&#34;">
+      <bpmn:incoming>Flow_1vboxfx</bpmn:incoming>
+      <bpmn:outgoing>Flow_0fiznjy</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1vboxfx" sourceRef="recommendation" targetRef="seedtrayprep" />
+    <bpmn:task id="lettuceseeds" name="Prepare Lettuce Seeds:&#10;&#10;1. Select high-quality lettuce seeds suitable for hydroponic growth. Consider the variety that best matches your taste preferences and growing conditions.&#10;2. Soak the seeds in water for about 2-4 hours to encourage germination. path=&#34;images\lettuceseeds.jpg&#34;">
+      <bpmn:incoming>Flow_0fiznjy</bpmn:incoming>
+      <bpmn:outgoing>Flow_0z38dl9</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0fiznjy" sourceRef="seedtrayprep" targetRef="lettuceseeds" />
+    <bpmn:task id="rockwool" name="Prepare Rockwool:&#10;&#10;1. Soak Rockwool cubes in water for at least an hour before use to ensure they are thoroughly saturated. Rockwool cubes will serve as the growing medium for your seeds. &#10;2. Ensure the pH of the water used for soaking is around 5.5 to 6.0, ideal for most hydroponic plants. path=&#34;images\rockwool.jpg&#34;">
+      <bpmn:incoming>Flow_0z38dl9</bpmn:incoming>
+      <bpmn:outgoing>Flow_140b2jd</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0z38dl9" sourceRef="lettuceseeds" targetRef="rockwool" />
+    <bpmn:task id="pHcheck" name="Check Water pH:&#10;&#10;1. Use a pH meter to measure the water&#39;s pH level in your seed tray. The ideal pH range for lettuce is between 5.5 and 6.5.&#10;2. If the pH is above 5, proceed to adjust the pH level.">
+      <bpmn:incoming>Flow_0h51h3g</bpmn:incoming>
+      <bpmn:outgoing>Flow_198c1wx</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="phcheck" name="pH&#62;5">
+      <bpmn:incoming>Flow_198c1wx</bpmn:incoming>
+      <bpmn:outgoing>Flow_14x3lii</bpmn:outgoing>
+      <bpmn:outgoing>Flow_18y4sd4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_14x3lii" name="NO" sourceRef="phcheck" targetRef="phcorrection">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=pH&gt;5 </bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:task id="ECcheck" name="check EC value">
+      <bpmn:incoming>Flow_18y4sd4</bpmn:incoming>
+      <bpmn:incoming>Flow_19nqwdi</bpmn:incoming>
+      <bpmn:outgoing>Flow_0lymjpt</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_18y4sd4" name="YES" sourceRef="phcheck" targetRef="ECcheck">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=pH&gt;=5</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0lymjpt" sourceRef="ECcheck" targetRef="Gateway_1j59b66" />
+    <bpmn:task id="eccorrection" name="Evaluate and Adjust EC Value:&#10;&#10;1. Use an EC meter to measure the water&#39;s nutrient concentration. For lettuce, the ideal EC range is between 0.8 and 2.0 dS/m.&#10;If EC is within the ideal range (0.8 - 2 dS/m): You can start inserting seeds into the rockwool.&#10;2. Else: Add more water to dilute the solution until the EC falls within the desired range.">
+      <bpmn:incoming>Flow_0ffcock</bpmn:incoming>
+      <bpmn:outgoing>Flow_1fc8qcp</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0ffcock" name="NO" sourceRef="Gateway_1j59b66" targetRef="eccorrection" />
+    <bpmn:task id="seedtorockwool" name="Insert Seeds into Rockwool:&#10;&#10;1. Make a small hole in the top of the soaked Rockwool cube and place two lettuce seeds inside. This increases the chance of germination but thin out to the stronger seedling later.">
+      <bpmn:incoming>Flow_084fsgi</bpmn:incoming>
+      <bpmn:incoming>Flow_1fc8qcp</bpmn:incoming>
+      <bpmn:outgoing>Flow_0knhllx</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_084fsgi" name="YES" sourceRef="Gateway_1j59b66" targetRef="seedtorockwool" />
+    <bpmn:parallelGateway id="Gateway_1j59b66" name="EC&#62;= 0.8 &#38; EC&#60;= 2 dS/m">
+      <bpmn:incoming>Flow_0lymjpt</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ffcock</bpmn:outgoing>
+      <bpmn:outgoing>Flow_084fsgi</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_0knhllx" sourceRef="seedtorockwool" targetRef="seedtraywithseeds" />
+    <bpmn:task id="seedtraywithseeds" name="Place Rockwool into Seed Tray:&#10;&#10;Carefully place the Rockwool cubes with seeds into the prepared seed tray. Ensure they are evenly spaced to allow for adequate air circulation and growth.  path=&#34;images\Seed-Starting.jpg&#34;">
+      <bpmn:incoming>Flow_0knhllx</bpmn:incoming>
+      <bpmn:outgoing>Flow_1a02tvn</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="water50" name="Moisten the Seed Tray:&#10;&#10;1. Add water to the seed tray to fill up to 50% of its capacity. This level of moisture is essential for seed germination and should be maintained, not overly saturated.&#10; path=&#34;images\Seed-Starting.jpg&#34;">
+      <bpmn:incoming>Flow_140b2jd</bpmn:incoming>
+      <bpmn:outgoing>Flow_0h51h3g</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_140b2jd" sourceRef="rockwool" targetRef="water50" />
+    <bpmn:sequenceFlow id="Flow_0h51h3g" sourceRef="water50" targetRef="pHcheck" />
+    <bpmn:sequenceFlow id="Flow_198c1wx" sourceRef="pHcheck" targetRef="phcheck" />
+    <bpmn:sequenceFlow id="Flow_19nqwdi" sourceRef="phcorrection" targetRef="ECcheck" />
+    <bpmn:task id="phcorrection" name="Adjust pH Level (if necessary):&#10;&#10;1. If pH &#62; 5: Dilute the water with more pure water to lower the pH to the desired level.&#10;2. Else: Proceed to check the EC (Electrical Conductivity) value.">
+      <bpmn:incoming>Flow_14x3lii</bpmn:incoming>
+      <bpmn:outgoing>Flow_19nqwdi</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="Event_0nrqtj5" name="End of Seed Stage&#10;Congratulations! You&#39;ve successfully prepared your lettuce seeds in Rockwool for vertical farming. Continue to the next stage instructions for transplanting and maintaining your seedlings in the hydroponic system.">
+      <bpmn:incoming>Flow_05b0nff</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1a02tvn" sourceRef="seedtraywithseeds" targetRef="Activity_18q2kn6" />
+    <bpmn:sequenceFlow id="Flow_1fc8qcp" sourceRef="eccorrection" targetRef="seedtorockwool" />
+    <bpmn:task id="Activity_18q2kn6" name="Once all seedlings have been placed, you&#39;ve completed the seed stage. &#10;1. Keep the seed tray in a location with sufficient light and warmth to encourage germination.&#10;2. Monitor moisture and pH levels regularly. When seedlings have sprouted and are of sufficient size as shown in picture, they can be transferred to the vertical hydroponic system. path=&#34;images\sprouted.jpg&#34;">
+      <bpmn:incoming>Flow_1a02tvn</bpmn:incoming>
+      <bpmn:outgoing>Flow_05b0nff</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_05b0nff" sourceRef="Activity_18q2kn6" targetRef="Event_0nrqtj5" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="processcorrectph">
+      <bpmndi:BPMNShape id="BPMNShape_1835q7c" bpmnElement="recommendation">
+        <dc:Bounds x="182" y="252" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="160" y="295" width="90" height="106" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1pb32d7_di" bpmnElement="seedtrayprep">
+        <dc:Bounds x="370" y="230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0z5x210_di" bpmnElement="lettuceseeds">
+        <dc:Bounds x="530" y="230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ivlfsu_di" bpmnElement="rockwool">
+        <dc:Bounds x="693" y="230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0tg737x_di" bpmnElement="pHcheck">
+        <dc:Bounds x="970" y="230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_116hsfi_di" bpmnElement="phcheck" isMarkerVisible="true">
+        <dc:Bounds x="1095" y="245" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1106" y="233" width="27" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_08uyozv_di" bpmnElement="ECcheck">
+        <dc:Bounds x="1230" y="340" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_152hc43_di" bpmnElement="eccorrection">
+        <dc:Bounds x="1520" y="340" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_14pezxf_di" bpmnElement="seedtorockwool">
+        <dc:Bounds x="1520" y="440" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_04dn539_di" bpmnElement="Gateway_1j59b66">
+        <dc:Bounds x="1385" y="355" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1366" y="325" width="89" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0szjd8z_di" bpmnElement="seedtraywithseeds">
+        <dc:Bounds x="1680" y="440" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_03vt1dt" bpmnElement="water50">
+        <dc:Bounds x="831" y="230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_08vjfxc_di" bpmnElement="phcorrection">
+        <dc:Bounds x="1230" y="230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0nrqtj5_di" bpmnElement="Event_0nrqtj5">
+        <dc:Bounds x="2032" y="462" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2011" y="505" width="84" height="225" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_18q2kn6_di" bpmnElement="Activity_18q2kn6">
+        <dc:Bounds x="1840" y="440" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1vboxfx_di" bpmnElement="Flow_1vboxfx">
+        <di:waypoint x="218" y="270" />
+        <di:waypoint x="370" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0fiznjy_di" bpmnElement="Flow_0fiznjy">
+        <di:waypoint x="470" y="270" />
+        <di:waypoint x="530" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0z38dl9_di" bpmnElement="Flow_0z38dl9">
+        <di:waypoint x="630" y="270" />
+        <di:waypoint x="693" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14x3lii_di" bpmnElement="Flow_14x3lii">
+        <di:waypoint x="1145" y="270" />
+        <di:waypoint x="1230" y="270" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1181" y="252" width="17" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18y4sd4_di" bpmnElement="Flow_18y4sd4">
+        <di:waypoint x="1120" y="295" />
+        <di:waypoint x="1120" y="380" />
+        <di:waypoint x="1230" y="380" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1124" y="335" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lymjpt_di" bpmnElement="Flow_0lymjpt">
+        <di:waypoint x="1330" y="380" />
+        <di:waypoint x="1385" y="380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ffcock_di" bpmnElement="Flow_0ffcock">
+        <di:waypoint x="1435" y="380" />
+        <di:waypoint x="1520" y="380" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1469" y="362" width="17" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_084fsgi_di" bpmnElement="Flow_084fsgi">
+        <di:waypoint x="1410" y="405" />
+        <di:waypoint x="1410" y="480" />
+        <di:waypoint x="1520" y="480" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1414" y="440" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0knhllx_di" bpmnElement="Flow_0knhllx">
+        <di:waypoint x="1620" y="480" />
+        <di:waypoint x="1680" y="480" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_140b2jd_di" bpmnElement="Flow_140b2jd">
+        <di:waypoint x="793" y="270" />
+        <di:waypoint x="831" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0h51h3g_di" bpmnElement="Flow_0h51h3g">
+        <di:waypoint x="931" y="270" />
+        <di:waypoint x="970" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_198c1wx_di" bpmnElement="Flow_198c1wx">
+        <di:waypoint x="1070" y="270" />
+        <di:waypoint x="1095" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_19nqwdi_di" bpmnElement="Flow_19nqwdi">
+        <di:waypoint x="1280" y="310" />
+        <di:waypoint x="1280" y="340" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1a02tvn_di" bpmnElement="Flow_1a02tvn">
+        <di:waypoint x="1780" y="480" />
+        <di:waypoint x="1840" y="480" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1fc8qcp_di" bpmnElement="Flow_1fc8qcp">
+        <di:waypoint x="1570" y="420" />
+        <di:waypoint x="1570" y="440" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05b0nff_di" bpmnElement="Flow_05b0nff">
+        <di:waypoint x="1940" y="480" />
+        <di:waypoint x="2032" y="480" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

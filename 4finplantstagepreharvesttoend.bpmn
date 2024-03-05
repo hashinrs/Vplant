@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_16431bx" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.19.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.4.0">
+  <bpmn:process id="Process_0lsgdud" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="VPlant&#10;Plant stage Recomenndations for grown up lettuce&#10;preconditions:&#10;1. plants are healthy&#10;2. plants are more than 6 weeks old. path=&#34;images\start2.jpg&#34;">
+      <bpmn:outgoing>Flow_03sz6rt</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_05831q2" name="Task 1: &#10;EC Level Maintenance&#10;Day 1:&#10; Adjust the nutrient solution&#39;s Electrical Conductivity (EC) to between 1.4 to 2.0 mS/cm. This EC range is ideal for lettuce in its late growth stages, ensuring they receive adequate nutrients.">
+      <bpmn:incoming>Flow_03sz6rt</bpmn:incoming>
+      <bpmn:outgoing>Flow_1w860wq</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_03sz6rt" sourceRef="StartEvent_1" targetRef="Activity_05831q2" />
+    <bpmn:task id="Activity_0vksz91" name="Task 2: &#10;pH Level Adjustment&#10;Day 1:&#10;Set the water&#39;s pH level to a range of 5.5 - 7.5. Maintaining this pH range ensures that nutrients are optimally available to the plants, which is critical for their growth and health">
+      <bpmn:incoming>Flow_1w860wq</bpmn:incoming>
+      <bpmn:outgoing>Flow_1hbkbh9</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1w860wq" sourceRef="Activity_05831q2" targetRef="Activity_0vksz91" />
+    <bpmn:task id="Activity_0k1uhjo" name="Task 3: &#10;Continuous EC Monitoring&#10;Day 1 to Harvest:&#10;Consistently maintain the EC level within the range of 1.4 to 2.0 mS/cm. Regular checks and adjustments to the nutrient solution concentration will be necessary to keep within this target.">
+      <bpmn:incoming>Flow_1hbkbh9</bpmn:incoming>
+      <bpmn:outgoing>Flow_0oodklo</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1hbkbh9" sourceRef="Activity_0vksz91" targetRef="Activity_0k1uhjo" />
+    <bpmn:task id="Activity_0kk45ix" name="Task 4: &#10;Water Cycle Adjustment&#10;Day 1 to Harvest:&#10;Modify the water cycle to flood the tower flow system every 15 minutes. &#10;As plants mature, their water and nutrient uptake rates can change. This adjusted cycling frequency helps meet the mature plants&#39; needs without overwatering.">
+      <bpmn:incoming>Flow_0oodklo</bpmn:incoming>
+      <bpmn:outgoing>Flow_06a7d5g</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0oodklo" sourceRef="Activity_0k1uhjo" targetRef="Activity_0kk45ix" />
+    <bpmn:task id="Activity_06tbdih" name="Task 5: Temperature Control&#10;Day 1 to Harvest: Ensure the tower&#39;s ambient temperature is kept between 18-28°C. This broader temperature range accommodates the lettuce&#39;s maturing stage, allowing for continued growth and development.">
+      <bpmn:incoming>Flow_06a7d5g</bpmn:incoming>
+      <bpmn:outgoing>Flow_0whz2x1</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_06a7d5g" sourceRef="Activity_0kk45ix" targetRef="Activity_06tbdih" />
+    <bpmn:task id="Activity_0y5rwge" name="Task 6:&#10;Disease Monitoring&#10;Duration:&#10;Day 1 to Harvest&#10;Recommendations:&#10;Vigilantly monitor for signs of Gray mold&#10;symptoms Look for fuzzy gray or brown spots on leaves.&#10;ifyes=&#34;Increase air circulation and reduce humidity to prevent its spread.&#34;">
+      <bpmn:incoming>Flow_0whz2x1</bpmn:incoming>
+      <bpmn:outgoing>Flow_1m267zi</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0whz2x1" sourceRef="Activity_06tbdih" targetRef="Activity_0y5rwge" />
+    <bpmn:endEvent id="Event_0iflosg" name="End of plant Stage&#10;Congratulations! You&#39;ve successfully completed your harvesting and farming Lettuce. ">
+      <bpmn:incoming>Flow_0f6q4ys</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1m267zi" sourceRef="Activity_0y5rwge" targetRef="Activity_0e7rz5k" />
+    <bpmn:task id="Activity_0e7rz5k" name="Task 7: &#10;Duration: Day1 to harvest        Recommendations:&#10;if no disease found continue to follow the recommendations from task 1 to task 7 everyday until harvest">
+      <bpmn:incoming>Flow_1m267zi</bpmn:incoming>
+      <bpmn:outgoing>Flow_0f6q4ys</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0f6q4ys" sourceRef="Activity_0e7rz5k" targetRef="Event_0iflosg" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0lsgdud">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="229" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="152" y="272" width="90" height="159" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_05831q2_di" bpmnElement="Activity_05831q2">
+        <dc:Bounds x="270" y="207" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0vksz91_di" bpmnElement="Activity_0vksz91">
+        <dc:Bounds x="430" y="207" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0k1uhjo_di" bpmnElement="Activity_0k1uhjo">
+        <dc:Bounds x="590" y="207" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0kk45ix_di" bpmnElement="Activity_0kk45ix">
+        <dc:Bounds x="750" y="207" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06tbdih_di" bpmnElement="Activity_06tbdih">
+        <dc:Bounds x="910" y="207" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0y5rwge_di" bpmnElement="Activity_0y5rwge">
+        <dc:Bounds x="1070" y="207" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0e7rz5k_di" bpmnElement="Activity_0e7rz5k">
+        <dc:Bounds x="1230" y="207" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0iflosg_di" bpmnElement="Event_0iflosg">
+        <dc:Bounds x="1432" y="229" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1411" y="272" width="81" height="106" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_03sz6rt_di" bpmnElement="Flow_03sz6rt">
+        <di:waypoint x="215" y="247" />
+        <di:waypoint x="270" y="247" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1w860wq_di" bpmnElement="Flow_1w860wq">
+        <di:waypoint x="370" y="247" />
+        <di:waypoint x="430" y="247" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hbkbh9_di" bpmnElement="Flow_1hbkbh9">
+        <di:waypoint x="530" y="247" />
+        <di:waypoint x="590" y="247" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0oodklo_di" bpmnElement="Flow_0oodklo">
+        <di:waypoint x="690" y="247" />
+        <di:waypoint x="750" y="247" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06a7d5g_di" bpmnElement="Flow_06a7d5g">
+        <di:waypoint x="850" y="247" />
+        <di:waypoint x="910" y="247" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0whz2x1_di" bpmnElement="Flow_0whz2x1">
+        <di:waypoint x="1010" y="247" />
+        <di:waypoint x="1070" y="247" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1m267zi_di" bpmnElement="Flow_1m267zi">
+        <di:waypoint x="1170" y="247" />
+        <di:waypoint x="1230" y="247" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0f6q4ys_di" bpmnElement="Flow_0f6q4ys">
+        <di:waypoint x="1330" y="247" />
+        <di:waypoint x="1432" y="247" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
