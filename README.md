@@ -23,7 +23,10 @@ As the global population is projected to reach 9.7 billion by 2050, the scarcity
 1. Ensure Python and pip are installed on your system.
 2. Install Pillow if it's not already installed
 3. Download Vplant.py
-4. Download .bpmn files 
+4. Download .bpmn files, images folder
+5. run Vplant.py
+    ```bash
+    python Vplant.py
 
 
 ## How to Use
