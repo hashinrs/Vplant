@@ -42,4 +42,3 @@ Contributions to VPlant are welcome. Please refer to contributing guidelines bef
 VPlant is released under MIT License.
 
 
-Please adjust any content to match the specifics of your project, such as adding a section for dependencies if your project requires more than is listed, adjusting the file names, or linking to the actual license file if it's different from `LICENSE.md`.
